@@ -1,35 +1,20 @@
-import { Application, Loader, Sprite } from 'pixi.js'
+import { Application, Sprite } from 'pixi.js';
+import clampyImg from '/static/clampy.png';
 
-// The application will create a renderer using WebGL, if possible,
-// with a fallback to a canvas render. It will also setup the ticker
-// and the root stage PIXI.Container.
-const app = new Application();
- 
-// The application will create a canvas element for you that you
-// can then insert into the DOM.
-document.body.appendChild(app.view);
-
-// load the texture we need
-Loader.shared.add('bunny', 'assets/bunny.png').load((loader, resources) => {
- 
-    // This creates a texture from a 'bunny.png' image.
-    const bunny = new Sprite(resources.bunny.texture);
- 
-    // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
- 
-    // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
-    
- 
-    // Add the bunny to the scene we are building.
-    app.stage.addChild(bunny);
- 
-    // Listen for frame updates
-    app.ticker.add(() => {
-         // each frame we spin the bunny around a bit
-        bunny.rotation += 0.01;
-    });
+const app = new Application({
+	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
+	resolution: window.devicePixelRatio || 1,
+	autoDensity: true,
+	backgroundColor: 0x6495ed,
+	width: 800,
+	height: 600
 });
+
+const clampy: Sprite = Sprite.from(clampyImg);
+
+clampy.anchor.set(0.5);
+
+clampy.x = app.screen.width / 2;
+clampy.y = app.screen.height / 2;
+
+app.stage.addChild(clampy);
