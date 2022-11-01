@@ -1,20 +1,11 @@
-import { Application, Sprite } from 'pixi.js';
-import clampyImg from '/static/clampy.png';
+import { Game } from './core/game';
 
-const app = new Application({
-	view: document.getElementById("pixi-canvas") as HTMLCanvasElement,
-	resolution: window.devicePixelRatio || 1,
-	autoDensity: true,
-	backgroundColor: 0x6495ed,
-	width: 800,
-	height: 600
-});
+const screenWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+const screenHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 
-const clampy: Sprite = Sprite.from(clampyImg);
-
-clampy.anchor.set(0.5);
-
-clampy.x = app.screen.width / 2;
-clampy.y = app.screen.height / 2;
-
-app.stage.addChild(clampy);
+Game.initialize(
+	screenWidth,
+	screenHeight,
+	0x000000,
+	document.getElementById("pixi-canvas") as HTMLCanvasElement
+);
