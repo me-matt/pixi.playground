@@ -1,7 +1,6 @@
 import { Application, Geometry, Shader, Mesh } from 'pixi.js';
 
-interface ITriangle extends Mesh<Shader> {
-}
+type ITriangle = Mesh<Shader>
 
 export class TriangleBuilder {
   triangle! : ITriangle;

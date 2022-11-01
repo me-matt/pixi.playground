@@ -4,7 +4,7 @@ import CopyPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 
-module.exports = (_: any, argv: any) => ({
+module.exports = (_: unknown, argv: { mode: string }) => ({
   entry: './src/main.ts',
   output: {
     filename: '[name].js',
@@ -42,12 +42,12 @@ module.exports = (_: any, argv: any) => ({
         loader: 'ts-loader',
         exclude: /node_modules/
       },
-          {
-            test: /\.(jpg|png)$/,
-            use: {
-              loader: 'url-loader',
-            },
-          },
+      {
+        test: /\.(jpg|png)$/,
+        use: {
+          loader: 'url-loader',
+        },
+      },
     ]
   },
   resolve: {
