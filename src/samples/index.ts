@@ -15,13 +15,10 @@
 // 	height: 600
 // });
 
-
 // Clampy(app);
-
 
 // const thing = Thingy(app);
 // RotThingy(app, thing);
-
 
 // const cx = app.view.width / 2;
 // const cy = app.view.height / 2;
@@ -29,7 +26,6 @@
 // 	.create(cx, cy)
 // 	.rotate(app)
 // 	.add(app);
-
 
 // HEXAGON
 // const g = new Graphics();
@@ -62,7 +58,7 @@
 // 				const x_i = drag.x + size * Math.cos(angle);
 // 				const y_i = drag.y + size * Math.sin(angle);
 
-// 				if (i === 0) { 
+// 				if (i === 0) {
 // 						shape.moveTo(x_i, scale * y_i);
 // 				}
 // 				else {
@@ -102,7 +98,6 @@
 // 	return shape;
 // }
 
-
 // BITMAPS
 // BitmapFont.from("comic 32", {
 // 	fill: "#ffffff", // White, will be colored later
@@ -128,7 +123,6 @@
 
 // // Add it to the `.filters` array of any DisplayObject
 // bitmapTexty.filters = [myBlurFilter];
-
 
 // SCENE
 // export class Scene extends Container {
@@ -169,8 +163,6 @@
 // 		Group.shared.update()
 // 	}
 // }
-
-
 
 // // pass in the screen size to avoid "asking up"
 // const sceny: Scene = new Scene(app.screen.width, app.screen.height);

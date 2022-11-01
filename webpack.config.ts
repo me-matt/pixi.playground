@@ -24,23 +24,25 @@ module.exports = (_: unknown, argv: { mode: string }) => ({
     port: 3000,
     hot: true,
   },
-  mode: argv.mode == "production" ? "production" : "development",
+  mode: argv.mode == 'production' ? 'production' : 'development',
   devtool: argv.mode === 'development' ? 'inline-source-map' : undefined,
   optimization: {
     minimize: argv.mode === 'production',
-    minimizer: [new TerserPlugin({
-      terserOptions: {
-        compress: { drop_console: true },
-        output: { comments: false, beautify: false },
-      },
-    })],
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: { drop_console: true },
+          output: { comments: false, beautify: false },
+        },
+      }),
+    ],
   },
   module: {
     rules: [
       {
         test: /\.ts(x)?$/,
         loader: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.(jpg|png)$/,
@@ -48,14 +50,10 @@ module.exports = (_: unknown, argv: { mode: string }) => ({
           loader: 'url-loader',
         },
       },
-    ]
+    ],
   },
   resolve: {
-    extensions: [
-      '.tsx',
-      '.ts',
-      '.js'
-    ]
+    extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({
@@ -67,7 +65,7 @@ module.exports = (_: unknown, argv: { mode: string }) => ({
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
       hash: true,
-      minify: false
-    })
-  ]
+      minify: false,
+    }),
+  ],
 });

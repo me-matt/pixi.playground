@@ -1,12 +1,13 @@
 import { Application, Geometry, Shader, Mesh } from 'pixi.js';
 
-type ITriangle = Mesh<Shader>
+type ITriangle = Mesh<Shader>;
 
 export class TriangleBuilder {
-  triangle! : ITriangle;
+  triangle!: ITriangle;
 
-  public create(cx : number, cy : number) : TriangleBuilder {
-    const shader = Shader.from(`
+  public create(cx: number, cy: number): TriangleBuilder {
+    const shader = Shader.from(
+      `
       precision mediump float;
       attribute vec2 aVertexPosition;
       attribute vec3 aColor;
@@ -27,21 +28,23 @@ export class TriangleBuilder {
       void main() {
         gl_FragColor = vec4(vColor, 1.0);
       }
-      `);
+      `
+    );
 
     const geometry = new Geometry()
       .addAttribute(
-        'aVertexPosition',	// name of the attribute
-        [-100, -50,					// x, y
-          100, -50,					// x, y
-          0.0, 100.0],			// x, y
-        2)									// size of the attribute
-      .addAttribute(
-        'aColor',
-        [0, 1, 0,
-          0, 1, 0,
-          0, 0, 1],
-        3);
+        'aVertexPosition', // name of the attribute
+        [
+          -100,
+          -50, // x, y
+          100,
+          -50, // x, y
+          0.0,
+          100.0,
+        ], // x, y
+        2
+      ) // size of the attribute
+      .addAttribute('aColor', [0, 1, 0, 0, 1, 0, 0, 0, 1], 3);
 
     this.triangle = new Mesh(geometry, shader);
     this.triangle.position.set(cx, cy);
@@ -50,19 +53,18 @@ export class TriangleBuilder {
     return this;
   }
 
-  public rotate(app : Application) : TriangleBuilder {
+  public rotate(app: Application): TriangleBuilder {
     app.ticker.add(() => {
       this.triangle.rotation += 0.01;
     });
-    
+
     return this;
   }
 
-  public add(app : Application) : void {
+  public add(app: Application): void {
     app.stage.addChild(this.triangle);
   }
 }
-
 
 // Triangle primitive
 
