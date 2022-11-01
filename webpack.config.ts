@@ -1,37 +1,35 @@
-const webpack = require('webpack');
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import CopyPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
 
-module.exports = (_, argv) => ({
-  stats: 'minimal',
+module.exports = (_: any, argv: any) => ({
   entry: './src/main.ts',
   output: {
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
   },
   devServer: {
     compress: true,
     static: false,
     client: {
-      logging: "warn",
+      logging: 'warn',
       overlay: {
         errors: true,
         warnings: false,
       },
       progress: true,
     },
-    port: 1234, host: '0.0.0.0',
+    port: 3000,
     hot: true,
   },
-  performance: { hints: false },
-  devtool: argv.mode === 'development' ? 'eval-source-map' : undefined,
+  mode: argv.mode == "production" ? "production" : "development",
+  devtool: argv.mode === 'development' ? 'inline-source-map' : undefined,
   optimization: {
     minimize: argv.mode === 'production',
     minimizer: [new TerserPlugin({
       terserOptions: {
-        ecma: 6,
         compress: { drop_console: true },
         output: { comments: false, beautify: false },
       },
@@ -44,12 +42,12 @@ module.exports = (_, argv) => ({
         loader: 'ts-loader',
         exclude: /node_modules/
       },
-      {
-        test: /\.(jpg|png)$/,
-        use: {
-          loader: 'url-loader',
-        },
-      },
+          {
+            test: /\.(jpg|png)$/,
+            use: {
+              loader: 'url-loader',
+            },
+          },
     ]
   },
   resolve: {
@@ -60,6 +58,9 @@ module.exports = (_, argv) => ({
     ]
   },
   plugins: [
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[name].js.map',
+    }),
     new CopyPlugin({
       patterns: [{ from: 'static/' }],
     }),
