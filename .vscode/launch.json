@@ -5,17 +5,45 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "reAttach": true,
+      "request": "launch",
+      "name": "client",
+      "url": "http://localhost:3000",
+      "clearConsoleOnReload": true,
+      "presentation": {
+        "hidden": true
+      },
+    },
+    {
       "type": "node",
       "request": "launch",
-      "name": "develop",
+      "name": "server",
       "program": "${workspaceFolder}/node_modules/.bin/webpack-cli",
       "args": [
         "serve",
         "--mode",
-        "development"
+        "development",
+        "--progress",
+        "--color",
       ],
+      "console": "internalConsole",
+      "trace": true,
       "autoAttachChildProcesses": true,
-      "stopOnEntry": true
+      "sourceMaps": true,
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "application",
+      "configurations": [
+        "server",
+        "client"
+      ],
+      "stopAll": true,
     }
   ]
 }
